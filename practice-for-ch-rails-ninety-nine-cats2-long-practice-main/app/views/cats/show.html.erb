@@ -37,8 +37,10 @@
         <th>Status</th>
       </tr>
       <%# <% @cat.rental_requests.order('start_date').each do |req| %>
+      <% if owner_of_cat? %>
         <%= render 'req_tr', req: req %>
       <% end %>
+      <%# end %>
     </table>
   <% end %>
   <a href="<%= new_cat_cat_rental_request_url(@cat) %>">

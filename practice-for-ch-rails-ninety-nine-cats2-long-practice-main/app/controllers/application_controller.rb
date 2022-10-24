@@ -21,4 +21,15 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def ensure_owner
+        @cat = Cat.find_by(id: params[:id])
+        if owner_of_cat?.nil?
+          redirect_to cat_url(@cat)
+        end
+    end
+
+    def owner_of_cat?
+        !!current_user.cats.find_by(id: @cat.id)
+    end
+
 end
