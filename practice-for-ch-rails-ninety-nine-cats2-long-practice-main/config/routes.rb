@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
+  resource :session, only: [:new, :create, :destroy]
+
   resources :cats, except: :destroy do
     resources :cat_rental_requests, only: [:new]
   end
