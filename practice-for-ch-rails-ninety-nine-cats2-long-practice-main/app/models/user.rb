@@ -40,4 +40,11 @@ class User < AplicationRecord
         self.session_token ||= generate_unique_session_token
     end
 
+    has_many :cats,
+        primary_key: :id,
+        foreign_key: :owner_id,
+        class_name: :Cat,
+        inverse_of: :owner,
+        dependent: :destroy
+
 end

@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+  before_action :require_logged_in
+
   def index
     @cats = Cat.all
     render :index
@@ -17,7 +19,8 @@ class CatsController < ApplicationController
   def create
     @cat = Cat.new(cat_params)
     if @cat.save
-      redirect_to cat_url(@cat)
+      redirect_to (@cat)cat_url
+      @cat.owner_id = current_user[:id]
     else
       flash.now[:errors] = @cat.errors.full_messages
       render :new
@@ -44,4 +47,6 @@ class CatsController < ApplicationController
   def cat_params
     params.require(:cat).permit(:birth_date, :color, :description, :name, :sex)
   end
+
+
 end
